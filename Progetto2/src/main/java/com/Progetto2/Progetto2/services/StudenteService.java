@@ -1,5 +1,6 @@
 package com.Progetto2.Progetto2.services;
 
+import com.Progetto2.Progetto2.data.StudenteDTO;
 import com.Progetto2.Progetto2.entities.Studente;
 import org.springframework.stereotype.Service;
 import com.Progetto2.Progetto2.repository.StudenteRepository;
@@ -38,4 +39,23 @@ public class StudenteService {
         return null;
     }
 
+    public Studente saveStudente(StudenteDTO studenteDTO)
+    {
+        try {
+            return studenteRepository.saveStudente(studenteDTO);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Studente UpdateStudente(StudenteDTO studenteDTO, Integer id)
+    {
+        try {
+            return studenteRepository.UpdateStudente(studenteDTO, id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

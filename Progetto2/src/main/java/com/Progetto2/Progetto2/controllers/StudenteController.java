@@ -1,13 +1,11 @@
 package com.Progetto2.Progetto2.controllers;
 
+import com.Progetto2.Progetto2.data.StudenteDTO;
 import com.Progetto2.Progetto2.entities.Studente;
 import com.Progetto2.Progetto2.services.StudenteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,10 +28,22 @@ public class StudenteController
     {
         return new ResponseEntity<>(studenteService.findAll(), HttpStatus.OK);
     }
-    @RequestMapping(value= "delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(value= "delete/{id}",method = RequestMethod.DELETE)
     public void Delete(@PathVariable Integer id)
     {
         System.out.printf("utente eliminato");
         studenteService.deleteRecord(id);
+    }
+
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public ResponseEntity<Studente> AddStudente(@RequestBody StudenteDTO studenteDTO)
+    {
+        System.out.println(studenteDTO.toString());
+        return new ResponseEntity<>(studenteService.saveStudente(studenteDTO), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/update/{id}",method = RequestMethod.PATCH)
+    public ResponseEntity<Studente> UpdateStudente(@RequestBody StudenteDTO studenteDTO, @PathVariable Integer id)
+    {
+        return new ResponseEntity<>(studenteService.UpdateStudente(studenteDTO, id), HttpStatus.OK);
     }
 }
