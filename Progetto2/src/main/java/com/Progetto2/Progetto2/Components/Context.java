@@ -1,4 +1,7 @@
 package com.Progetto2.Progetto2.Components;
+/**
+ * crea le basi della connessione al database
+ */
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -6,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
+/**
+ * crea le basi della connessione al database
+ */
 @Component
 public class Context
 {

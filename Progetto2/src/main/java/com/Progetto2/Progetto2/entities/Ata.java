@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Ata extends Persona{
     private String Mansione;
-
+    private Double Stipendio;
 }

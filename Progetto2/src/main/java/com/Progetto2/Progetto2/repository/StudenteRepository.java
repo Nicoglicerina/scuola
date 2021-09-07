@@ -10,6 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * La classe repository si occupa di interagire con il database tramite metodi e query
+ */
 @Repository
 public class StudenteRepository
 {
@@ -26,6 +29,12 @@ public class StudenteRepository
         this.studenteConverter = studenteConverter;
     }
 
+    /**
+     * si occupa di fare una ricerca all'interno del database per estrarre una istanza che abbia un determinato
+     * @param id
+     * @return studente
+     * @throws SQLException
+     */
     public Studente findStudenteById(Integer id) throws SQLException {
         Studente studente=null;
         Connection c=dataSource.getConnection();
@@ -41,6 +50,13 @@ public class StudenteRepository
         return studente;
     }
 
+    /**
+     * si occupa della gestione degli attributi della classe Studente
+     * @param studente
+     * @param rs
+     * @throws SQLException
+     */
+
     private void getStudente(Studente studente, ResultSet rs) throws SQLException {
         studente.setId(rs.getInt("id"));
         studente.setMedia(rs.getInt("media"));
@@ -51,6 +67,11 @@ public class StudenteRepository
         studente.setNome(rs.getString("nome"));
     }
 
+    /**
+     * si occupa di estrarre dal database tutte le istanze della classe Studente
+     * @return list
+     * @throws SQLException
+     */
     public List<Studente> findAllStudente() throws SQLException
     {
         Connection c=dataSource.getConnection();
@@ -68,6 +89,10 @@ public class StudenteRepository
         return list;
     }
 
+    /**
+     * si occupa di eliminare una determinata istanza in base all'id all'interno del database
+     * @param id
+     */
     public void DeleteStudente(Integer id) {
         try {
             Connection c = dataSource.getConnection();
@@ -80,6 +105,12 @@ public class StudenteRepository
         }
     }
 
+    /**
+     * si occupa dell'inserimento all'interno del db di una nuova istanza della classe Studente
+     * @param studenteDTO
+     * @return
+     * @throws SQLException
+     */
     public Studente saveStudente(StudenteDTO studenteDTO) throws SQLException {
         Connection c=dataSource.getConnection();
         Statement st=c.createStatement();
@@ -103,7 +134,13 @@ public class StudenteRepository
         return studente;
     }
 
-
+    /**
+     * si prepara in precedenza i dati da inserire in modo da stabilire un ordine e avere un maggior controllo sui dati inseriti
+     * @param preparedStatement
+     * @param studente
+     * @return preparedStatement
+     * @throws SQLException
+     */
     private PreparedStatement preparedStatement (PreparedStatement preparedStatement, Studente studente) throws SQLException {
         //id, nome, cognome, materia, cittadinaza, media,dob
         preparedStatement.setString(1,studente.getNome());
@@ -111,10 +148,17 @@ public class StudenteRepository
         preparedStatement.setString(3,studente.getMateria());
         preparedStatement.setString(4,studente.getCittadinaza());
         preparedStatement.setDouble(5,studente.getMedia());
-        preparedStatement.setString(6,studente.getMateria());
-        preparedStatement.setInt(7,studente.getId());
+        preparedStatement.setInt(6,studente.getId());
         return preparedStatement;
     }
+
+    /**
+     * si occupa di aggiornare i dati di una determinata istanza dell'entita Studente
+     * @param studenteDTO
+     * @param id
+     * @return studente
+     * @throws SQLException
+     */
     public Studente UpdateStudente(StudenteDTO studenteDTO, Integer id) throws SQLException {
         Connection c=dataSource.getConnection();
         Studente studente=studenteConverter.studenteDTOconverter(studenteDTO,id);

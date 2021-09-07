@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Persona{
+public abstract class Persona {
     private String Nome;
     private String Cognome;
     private String Dob;

@@ -6,6 +6,9 @@ import com.Progetto2.Progetto2.entities.Studente;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
+/**
+ * Classe che si occupa di convertire i dati inviati dall'utente e inseriti in StudenteDTO in entità di tipo studente
+ */
 @Component
 public class StudenteConverter {
     final StudenteValidator studenteValidator;
@@ -13,6 +16,14 @@ public class StudenteConverter {
     public StudenteConverter(StudenteValidator studenteValidator) {
         this.studenteValidator = studenteValidator;
     }
+
+    /**
+     * prende i dati inseriti dall'utente dalla classe StudenteDTO e crea una nuova istanza dell'entità Studente
+     * inserendo così i dati
+     * @param studenteDTO
+     * @param ID
+     * @return studente
+     */
     @SneakyThrows
     public Studente studenteDTOconverter(StudenteDTO studenteDTO, Integer ID)
     {
